@@ -158,6 +158,13 @@ function Dashboard() {
             <h1>Create Task</h1>
 
             <form className="task-form">
+              <form
+  className="task-form"
+  onSubmit={(e) => {
+    e.preventDefault();
+    alert("Task Created Successfully");
+  }}
+></form>
 
               <input type="text" placeholder="Task Title" />
 
