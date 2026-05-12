@@ -1,16 +1,104 @@
-# React + Vite
+# TaskFlow Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Professional Task Management Frontend built using React + Vite.
 
-Currently, two official plugins are available:
+## Live Deployment
+https://aura-trends-frontend-ixh3.vercel.app
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## GitHub Repository
+https://github.com/Thokalacharan/aura-trends-frontend
 
-## React Compiler
+---
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+# Tech Stack
 
-## Expanding the ESLint configuration
+- React.js
+- Vite
+- React Router DOM
+- Axios
+- CSS3
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+---
+
+# Features Implemented
+
+## Authentication
+- User Login
+- User Registration
+- Confirm Password Validation
+- Token Storage using LocalStorage
+- Protected Routes
+
+## Dashboard
+- Task Statistics Cards
+- Pending / In Progress / Completed Sections
+- Sidebar Navigation
+- Logout Functionality
+
+## Task Management
+- Create Task UI
+- Manage Tasks UI
+- Team Members UI
+
+## API Integration
+Integrated with backend APIs using Axios.
+
+Base Backend URL:
+
+https://task-management-system-backend-19c4.onrender.com
+
+---
+
+# Folder Structure
+
+src/
+│
+├── components/
+├── pages/
+│ ├── Login.jsx
+│ ├── Register.jsx
+│ └── Dashboard.jsx
+│
+├── routes/
+│ └── ProtectedRoute.jsx
+│
+├── services/
+│ └── api.js
+│
+├── styles/
+│ └── auth.css
+│
+├── App.jsx
+└── main.jsx
+
+---
+
+# API Endpoints Used
+
+## Authentication
+POST /users/register
+POST /users/login
+
+## Tasks
+GET /tasks
+POST /tasks
+PUT /tasks/:id
+DELETE /tasks/:id
+
+---
+
+# Important Note
+
+Frontend is fully completed and working correctly on localhost.
+
+For deployed Vercel frontend, backend CORS configuration must allow this domain:
+
+https://aura-trends-frontend-ixh3.vercel.app
+
+---
+
+# Installation
+
+```bash
+npm install
+npm run dev

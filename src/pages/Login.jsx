@@ -3,15 +3,12 @@ import { Link, useNavigate } from "react-router-dom";
 import API from "../services/api";
 import "../styles/auth.css";
 
-function Register() {
-
+function Login() {
   const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
-    name: "",
     email: "",
     password: "",
-    confirmPassword: "",
   });
 
   const handleChange = (e) => {
@@ -24,29 +21,15 @@ function Register() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Password validation
-    if (formData.password !== formData.confirmPassword) {
-      alert("Passwords do not match");
-      return;
-    }
-
     try {
+      const res = await API.post("/users/login", formData);
 
-      await API.post("/users/register", {
-        name: formData.name,
-        email: formData.email,
-        password: formData.password,
-      });
+      localStorage.setItem("token", res.data.token);
 
-      alert("Registration Successful");
-
-      navigate("/");
-
+      navigate("/dashboard");
     } catch (error) {
-
-      alert("Signup Failed");
+      alert("Invalid Credentials");
       console.log(error);
-
     }
   };
 
@@ -56,13 +39,10 @@ function Register() {
       <div className="left-side">
 
         <div className="brand">
-
           <h1>TaskFlow</h1>
-
           <p>
-            Organize projects, manage teams, and boost productivity.
+            Professional task management platform for modern teams.
           </p>
-
         </div>
 
       </div>
@@ -71,19 +51,11 @@ function Register() {
 
         <form className="auth-card" onSubmit={handleSubmit}>
 
-          <h2>Create Account</h2>
+          <h2>Welcome Back</h2>
 
           <p className="subtitle">
-            Start your professional journey today.
+            Login to continue managing your workflow.
           </p>
-
-          <input
-            type="text"
-            name="name"
-            placeholder="Enter your name"
-            onChange={handleChange}
-            required
-          />
 
           <input
             type="email"
@@ -96,26 +68,18 @@ function Register() {
           <input
             type="password"
             name="password"
-            placeholder="Create password"
-            onChange={handleChange}
-            required
-          />
-
-          <input
-            type="password"
-            name="confirmPassword"
-            placeholder="Confirm password"
+            placeholder="Enter your password"
             onChange={handleChange}
             required
           />
 
           <button type="submit">
-            Create Account
+            Login
           </button>
 
           <p className="bottom-text">
-            Already have an account?
-            <Link to="/"> Login</Link>
+            Don't have an account?
+            <Link to="/register"> Signup</Link>
           </p>
 
         </form>
@@ -126,4 +90,4 @@ function Register() {
   );
 }
 
-export default Register;
+export default Login;
