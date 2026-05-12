@@ -5,6 +5,7 @@ import "../styles/auth.css";
 
 function Login() {
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
 
   const [formData, setFormData] = useState({
     email: "",
@@ -20,6 +21,7 @@ function Login() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
 
     try {
       const res = await API.post("/users/login", formData);
@@ -30,6 +32,8 @@ function Login() {
     } catch (error) {
       alert("Invalid Credentials");
       console.log(error);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -74,8 +78,8 @@ function Login() {
           />
 
           <button type="submit">
-            Login
-          </button>
+  {loading ? "Loading..." : "Login"}
+</button>
 
           <p className="bottom-text">
             Don't have an account?

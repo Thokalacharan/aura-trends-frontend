@@ -6,6 +6,7 @@ import "../styles/auth.css";
 function Register() {
 
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
 
   const [formData, setFormData] = useState({
     name: "",
@@ -23,6 +24,7 @@ function Register() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
 
     // Password validation
     if (formData.password !== formData.confirmPassword) {
@@ -43,11 +45,11 @@ function Register() {
       navigate("/");
 
     } catch (error) {
-
-      alert("Signup Failed");
-      console.log(error);
-
-    }
+  alert("Signup Failed");
+  console.log(error);
+} finally {
+  setLoading(false);
+}
   };
 
   return (
@@ -109,9 +111,9 @@ function Register() {
             required
           />
 
-          <button type="submit">
-            Create Account
-          </button>
+         <button type="submit">
+  {loading ? "Loading..." : "Create Account"}
+</button>
 
           <p className="bottom-text">
             Already have an account?
