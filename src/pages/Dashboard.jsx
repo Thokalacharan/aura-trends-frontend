@@ -1,5 +1,6 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "../styles/dashboard.css";
+import API from "../services/api";
 
 import {
   FaTachometerAlt,
@@ -13,10 +14,31 @@ function Dashboard() {
 
   const [activeSection, setActiveSection] = useState("dashboard");
 
-  const logout = () => {
-    localStorage.removeItem("token");
-    window.location.href = "/";
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    fetchUser();
+  }, []);
+
+  const fetchUser = async () => {
+    try {
+      const res = await API.get("/users/me");
+      setUser(res.data);
+    } catch (error) {
+      console.log(error);
+    }
   };
+
+  const logout = async () => {
+  try {
+    await API.post("/users/logout");
+  } catch (error) {
+    console.log(error);
+  }
+
+  localStorage.removeItem("token");
+  window.location.href = "/";
+};
 
   return (
     <div className="dashboard">

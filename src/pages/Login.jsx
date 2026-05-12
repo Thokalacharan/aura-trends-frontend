@@ -24,12 +24,14 @@ function Login() {
     setLoading(true);
 
     try {
-      const res = await API.post("/users/login", formData);
+  const res = await API.post("/users/login", formData);
 
-      localStorage.setItem("token", res.data.token);
+  console.log(res.data);
 
-      navigate("/dashboard");
-    } catch (error) {
+  localStorage.setItem("token", res.data.data.token);
+
+  navigate("/dashboard");
+} catch (error) {
       alert("Invalid Credentials");
       console.log(error);
     } finally {
