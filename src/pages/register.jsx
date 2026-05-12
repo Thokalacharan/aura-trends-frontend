@@ -4,12 +4,14 @@ import API from "../services/api";
 import "../styles/auth.css";
 
 function Register() {
+
   const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
     name: "",
     email: "",
     password: "",
+    confirmPassword: "",
   });
 
   const handleChange = (e) => {
@@ -22,15 +24,29 @@ function Register() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    // Password validation
+    if (formData.password !== formData.confirmPassword) {
+      alert("Passwords do not match");
+      return;
+    }
+
     try {
-      await API.post("/users/register", formData);
+
+      await API.post("/users/register", {
+        name: formData.name,
+        email: formData.email,
+        password: formData.password,
+      });
 
       alert("Registration Successful");
 
       navigate("/");
+
     } catch (error) {
+
       alert("Signup Failed");
       console.log(error);
+
     }
   };
 
@@ -40,11 +56,13 @@ function Register() {
       <div className="left-side">
 
         <div className="brand">
+
           <h1>TaskFlow</h1>
 
           <p>
             Organize projects, manage teams, and boost productivity.
           </p>
+
         </div>
 
       </div>
@@ -79,6 +97,14 @@ function Register() {
             type="password"
             name="password"
             placeholder="Create password"
+            onChange={handleChange}
+            required
+          />
+
+          <input
+            type="password"
+            name="confirmPassword"
+            placeholder="Confirm password"
             onChange={handleChange}
             required
           />
