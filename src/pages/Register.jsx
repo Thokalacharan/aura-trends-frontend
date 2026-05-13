@@ -8,12 +8,13 @@ function Register() {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
 
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    password: "",
-    confirmPassword: "",
-  });
+ const [formData, setFormData] = useState({
+  name: "",
+  email: "",
+  password: "",
+  confirmPassword: "",
+  role: "user",
+});
 
   const handleChange = (e) => {
     setFormData({
@@ -34,11 +35,12 @@ function Register() {
 
     try {
 
-      await API.post("/users/register", {
-        name: formData.name,
-        email: formData.email,
-        password: formData.password,
-      });
+     await API.post("/users/register", {
+  name: formData.name,
+  email: formData.email,
+  password: formData.password,
+  role: formData.role,
+});
 
       alert("Registration Successful");
 
@@ -110,6 +112,14 @@ function Register() {
             onChange={handleChange}
             required
           />
+          <select
+  name="role"
+  value={formData.role}
+  onChange={handleChange}
+>
+  <option value="user">User</option>
+  <option value="admin">Admin</option>
+</select>
 
          <button type="submit">
   {loading ? "Loading..." : "Create Account"}
